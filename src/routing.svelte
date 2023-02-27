@@ -8,7 +8,7 @@
         {#if route.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
             <Route path={route.path}><svelte:component this={route.component} /></Route>
             {:else}
-            <Route path={route.path} redirect="/"><svelte:component this={route.component} /></Route>
+            <Route path={route.path} redirect="/login"><svelte:component this={route.component} /></Route>
         {/if}
     {/each}
 </main>
