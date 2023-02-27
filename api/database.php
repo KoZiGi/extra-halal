@@ -124,9 +124,11 @@
             }
                 
             try{
-                $affectedRows = $db->exec("INSERT INTO $table (ID $fields) VALUES(null $values)"); 
+                $cmd = $db->prepare("INSERT INTO $table (ID $fields) VALUES(null $values)");
+                $affectedRows = $cmd->execute();
+                $cmd->commit();
                 $results = array(
-                    'affectedRows' => $affectedRows,
+                    'insertedId' => $cmd->lastInsertId(),
                     'message' => "A művelet végrehajtva!"
                 );
             }
