@@ -1,10 +1,9 @@
 <script lang="ts">
-    import Main from "./views/Main.svelte";
-
+    import Routing from "./routing.svelte";
 </script>
 
 <style>
     
 </style>
 
-<Main/>
+<Routing/>

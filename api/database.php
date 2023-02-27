@@ -87,7 +87,22 @@
 
     //  HTTP POST METHOD
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
+        if (isset($_POST['login'])){
+            $email = $_POST['email'];
+            $passwd = $_POST['passwd'];
+            if (count($db->query("select * from users where email='$email' and passwd='$passwd'")->fetchAll())>0){
+                http_response_code(200);
+                $results = array(
+                    'message'=>'Sikeres bejelentkezés!'
+                );
+            }
+            else{
+                http_response_code(401);
+                $results = array(
+                    'message'=>'Sikeres bejelentkezés!'
+                );
+            }
+        }
         if (isset($_FILES['filename'])){
             $filename = $_FILES['filename']['name'];
             if (move_uploaded_file($_FILES['filename']['tmp_name'], $uploadDir.time().'-'-$_FILES['filename']['name']))
