@@ -8,8 +8,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+          {#if $CurrentUser.isGuest}
+            <li class="nav-item"><a href='/login' class="nav-link">Bejelentkez</a></li>
+            <li class="nav-item"><a href='/registration' class="nav-link">Regisztrál</a></li>
+          {/if}
         {#each $Routes as link}
-            {#if link.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
+          {#if link.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
                 <li class="nav-item">
                     <a class="nav-link" href={link.path}>{link.name}</a>
                 </li>

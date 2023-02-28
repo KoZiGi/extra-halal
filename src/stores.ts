@@ -1,24 +1,18 @@
 /* Interfaces */
 import type { Route } from "./interfaces/route";
 import type { User } from "./interfaces/user";
-import { writable, readable, type Writable } from "svelte/store";
+import { writable, readable, type Writable, type Readable } from "svelte/store";
 /* Svelte Components */
 import Main from './views/Main.svelte';
 import Orders from './views/Orders.svelte';
 import Gyros from './views/Gyros.svelte';
 import Cart from './views/Cart.svelte';
-import Login from './views/Cart.svelte';
+import Login from './views/Login.svelte';
 
 
 
 
-export let Routes:Writable<Route[]> = writable<Route[]>([
-    {
-        path:'/login',
-        name:"Bejelentkez",
-        component:Login,
-        minPriv:0
-    },
+export let Routes:Readable<Route[]> = readable<Route[]>([
     {
         path:"/",
         name:"Főoldal",
