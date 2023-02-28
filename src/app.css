@@ -1,0 +1,8 @@
+@import "bootstrap";
+@font-face {
+    font-family: 'Quicksand';
+    src: url('/fonts/Quicksand-VariableFont_wght.ttf');
+}
+*{
+    font-family: 'Quicksand';
+}
