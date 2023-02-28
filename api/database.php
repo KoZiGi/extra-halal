@@ -87,9 +87,9 @@
 
     //  HTTP POST METHOD
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if (isset($_POST['login'])){
-            $email = $_POST['email'];
-            $passwd = $_POST['passwd'];
+        if (isset($data->login)){
+            $email = $data->email;
+            $passwd = $data->passwd;
             if (count($db->query("select * from users where email='$email' and passwd='$passwd'")->fetchAll())>0){
                 http_response_code(200);
                 $results = array(
@@ -99,61 +99,63 @@
             else{
                 http_response_code(401);
                 $results = array(
-                    'message'=>'Sikeres bejelentkezés!'
+                    'message'=>'Sikertelen bejelentkezés!'
                 );
             }
         }
-        if (isset($_FILES['filename'])){
-            $filename = $_FILES['filename']['name'];
-            if (move_uploaded_file($_FILES['filename']['tmp_name'], $uploadDir.time().'-'-$_FILES['filename']['name']))
-            {
-                $results = array(
-                    'affectedRows' => 1,
-                    'message' => "A fájl feltöltve!",
-                    'filename'=>time().'-'.$FILES['filename']['name']
-                );
-
-            }
-            else
-            {
-                $results = array(
-                    'affectedRows' => 0,
-                    'message' => "Hiba a fájl feltöltés közben!"
-                );
-            }
-            
-        }
-        if (isset($data->values)){
-           
-            $newrecord = $data->values;
-
-            $fields = '';
-            $values = '';
-            
-            foreach($newrecord as $key => $record){
-                $fields .= ', '.$key;
-            }
-            
-            foreach($newrecord as $record){
-                $values .= ', "'.$record.'"';
-            }
+        else{
+            if (isset($_FILES['filename'])){
+                $filename = $_FILES['filename']['name'];
+                if (move_uploaded_file($_FILES['filename']['tmp_name'], $uploadDir.time().'-'-$_FILES['filename']['name']))
+                {
+                    $results = array(
+                        'affectedRows' => 1,
+                        'message' => "A fájl feltöltve!",
+                        'filename'=>time().'-'.$FILES['filename']['name']
+                    );
+    
+                }
+                else
+                {
+                    $results = array(
+                        'affectedRows' => 0,
+                        'message' => "Hiba a fájl feltöltés közben!"
+                    );
+                }
                 
-            try{
-                $cmd = $db->prepare("INSERT INTO $table (ID $fields) VALUES(null $values)");
-                $affectedRows = $cmd->execute();
-                $cmd->commit();
-                $results = array(
-                    'insertedId' => $cmd->lastInsertId(),
-                    'message' => "A művelet végrehajtva!"
-                );
             }
-            catch(PDOException $Exception){
-                $results = array(
-                    'affectedRows' => 0,
-                    'message' => $db->errorInfo()
-                );
-            } 
-        }  
+            if (isset($data->values)){
+               
+                $newrecord = $data->values;
+    
+                $fields = '';
+                $values = '';
+                
+                foreach($newrecord as $key => $record){
+                    $fields .= ', '.$key;
+                }
+                
+                foreach($newrecord as $record){
+                    $values .= ', "'.$record.'"';
+                }
+                    
+                try{
+                    $cmd = $db->prepare("INSERT INTO $table (ID $fields) VALUES(null $values)");
+                    $affectedRows = $cmd->execute();
+                    $cmd->commit();
+                    $results = array(
+                        'insertedId' => $cmd->lastInsertId(),
+                        'message' => "A művelet végrehajtva!"
+                    );
+                }
+                catch(PDOException $Exception){
+                    $results = array(
+                        'affectedRows' => 0,
+                        'message' => $db->errorInfo()
+                    );
+                } 
+            }  
+        }
     }
 
     //  HTTP PATCH METHOD

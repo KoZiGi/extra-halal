@@ -4,6 +4,11 @@ interface ServerResponse{
     message:string,
     affectedRows?:number;
 }
+
+export interface LoginData{
+    email:string;
+    passwd:string;
+}
 interface Params{
     table:string,
     field?:string,
@@ -13,13 +18,16 @@ interface Params{
 }
 
 
-export function GetUser(parameters?:Params):Promise<User[]>{
-    return axios.get('http://localhost/extra-halal/api/database.php', {
+export async function GetUser(parameters?:Params):Promise<User[]>{
+    return await axios.get('http://localhost/extra-halal/api/database.php', {
         params:parameters ? parameters : {table:'users'}
-    });
+    }).then(res=>res.data);
 }
-export function Login(){
-
+export function Login(userdata:LoginData):Promise<ServerResponse>{
+    return axios.post('http://localhost/extra-halal/api/database.php', {
+        login:"",
+        ...userdata
+    })
 }
 export function Register(newuser:User):Promise<any>{
     let param:Params = {
