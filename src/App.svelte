@@ -7,6 +7,6 @@
 <style>
     
 </style>
-<!--<Navbar/>
-<Routing/>-->
-<GyrosUpload/>
+<Navbar/>
+<Routing/>
+<!--<GyrosUpload/>-->
