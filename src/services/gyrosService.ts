@@ -16,3 +16,9 @@ export async function GetGyros():Promise<Gyros[]>{
     }
     return await axios.get('http://localhost/extra-halal/api/database.php', {params:param}).then(res=>res.data);
 }
+
+export async function PostGyros(object) {
+        await axios.post("http://localhost/backend/extra-halal/api/database.php", object).then((res)=>{
+            console.log(res);
+        })
+}
