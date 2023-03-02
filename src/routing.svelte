@@ -3,22 +3,25 @@
     import {Routes, CurrentUser} from './stores';
     import Login from './views/Login.svelte';
     import Register from './views/Registration.svelte';
+    import LazyLoad from './components/LazyLoad.svelte';
+    import { fade } from 'svelte/transition';
     console.log($CurrentUser);
 </script>
 <main>
     {#if $CurrentUser.isGuest}
-        <Route path='/login'><svelte:component this={Login} /></Route>
-        <Route path='/registration'><svelte:component this={Register} /></Route>
+        <Route path='/login'><LazyLoad component={()=>import('./views/Login.svelte')}/></Route>
+        <Route path='/registration'><LazyLoad component={()=>import('./views/Registration.svelte')}/></Route>
         {:else}
-        <Route path='/login' redirect='/'><svelte:component this={Login} /></Route>
-        <Route path='/registration' redirect='/'><svelte:component this={Register} /></Route>
+        <Route path='/login' redirect='/' />
+        <Route path='/registration' redirect='/' />
     {/if}
     {#each $Routes as route}
         {#if route.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
-            <Route path={route.path}><svelte:component this={route.component} /></Route>
+            <Route path={route.path}><LazyLoad component={()=>import( /* @vite-ignore */ route.component)} /></Route>
             {:else}
-            <Route path={route.path} redirect="/login"><svelte:component this={route.component} /></Route>
+            <Route path={route.path} redirect="/login" />
         {/if}
     {/each}
     <Route fallback redirect="/" />
 </main>
+<footer class="text-center bg-dark text-light">Made by KoZiGi&copy; 2023.</footer>

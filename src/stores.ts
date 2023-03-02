@@ -2,39 +2,30 @@
 import type { Route } from "./interfaces/route";
 import type { User } from "./interfaces/user";
 import { writable, readable, type Writable, type Readable } from "svelte/store";
-/* Svelte Components */
-import Main from './views/Main.svelte';
-import Orders from './views/Orders.svelte';
-import Gyros from './views/Gyros.svelte';
-import Cart from './views/Cart.svelte';
-import Login from './views/Login.svelte';
-
-
-
 
 export let Routes:Readable<Route[]> = readable<Route[]>([
     {
         path:"/",
         name:"Főoldal",
-        component:Main,
+        component:'./views/Main.svelte',
         minPriv: 0
     },
     {
         path:"/gyros",
         name:"Ételek Finom!",
-        component:Gyros,
+        component:'./views/Gyros.svelte',
         minPriv: 0
     },
     {
         path:'/cart',
         name:"Kosár",
-        component:Cart,
+        component:'./views/Cart.svelte',
         minPriv:1
     },
     {
         path:"/orders",
         name:"Eve Teslim Deneyimi",
-        component:Orders,
+        component:'./views/Orders.svelte',
         minPriv: 2
     },
 ]);

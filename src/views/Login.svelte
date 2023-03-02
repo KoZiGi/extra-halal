@@ -2,6 +2,7 @@
     import { GetUser, type LoginData } from "../services/userControlling";
     import { Login } from '../services/userControlling';
     import { CurrentUser } from "../stores";
+    import { fade } from "svelte/transition";
     let userdata:LoginData = {} as LoginData;
     function TryLogin(){
         Login(userdata).then(res=>{
@@ -21,18 +22,18 @@
         });
     }
 </script>
-<div>
+<div id="login" class="col-lg-7 col-md-9 col-11 border border-dark rounded p-3 mx-auto">
+    <h2>Bejelentkez</h2>
     <div class="mb-3">
-        <label for="password">Email</label>
-        <input type="email" bind:value={userdata.email} />
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" bind:value={userdata.email} />
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" bind:value={userdata.passwd} />
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" bind:value={userdata.passwd} />
     </div>
-    <button on:click={TryLogin}>Login</button>
+    <button class="btn btn-primary" on:click={TryLogin}>Bejelentkez</button>
 </div>
-<style>
-    
+<style lang="sass">
 </style>
 

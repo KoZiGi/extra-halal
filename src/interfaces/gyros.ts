@@ -4,4 +4,5 @@ export interface Gyros{
     price:number;
     kcal:number;
     description:string;
+    image:string;
 }
