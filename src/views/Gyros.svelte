@@ -2,7 +2,12 @@
   import { each } from "svelte/internal";
   import GyrosCard from "./GyrosCard.svelte";
   import type { Gyros } from "../interfaces/gyros";
+  import { onMount } from "svelte/types/runtime/internal/lifecycle";
+  import { GetGyros } from "../services/gyrosService";
   let gyrosok: Gyros[];
+  onMount(async()=>{
+    gyrosok= await GetGyros();
+  })
 </script>
 
 <div>

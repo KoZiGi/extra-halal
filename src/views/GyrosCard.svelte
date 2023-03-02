@@ -1,21 +1,23 @@
 <script lang="ts">
     import type { Gyros } from "../interfaces/gyros";
     export let gyros:Gyros
-    let gyrosamount:number=0
+    let gyrosamount:number=1
     function Order(){
-        alert("bruh")
+        
     }
 
 </script>
 
 <div class="card" style="width: 18rem;">
     <div class="card-header">
-      <h5 class="card-title">{gyros.name}</h5>
+        <h4 class="card-title">{gyros.name}</h4>
     </div>
     <img src={gyros.image} class="card-img-top" alt="..." />
     <div class="card-body">
-      <div class="flex" />
-      <p class="card-text">{gyros.description}</p>
+        <p class="card-text">{gyros.description}</p>
+        <div class="flex justify-content-between">
+            <h5>{gyros.price*gyrosamount}FT</h5>   <h6 class="text-muted">kcal:{gyros.kcal}</h6>
+        </div>
     </div>
     <div class="card-footer">
       <div class="input-group mb-3">
@@ -35,4 +37,4 @@
           </button>
       </div>
     </div>
-  </div>
+</div>
