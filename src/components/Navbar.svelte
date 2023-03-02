@@ -19,10 +19,35 @@
                 </li>
             {/if}
         {/each}
-        </ul>
+      </ul>
+      {#if !$CurrentUser.isGuest}
+        <div class="ms-auto dropdown">
+          <span class="nav-link dropdown-toggle" id="navdrop" data-bs-toggle="dropdown">{$CurrentUser.name}</span>
+          <ul class="dropdown-menu dropdown-menu-md-end">
+            <li><span class="dropdown-item" on:click={LogOut}>Kijelentkez</span></li>
+          </ul>
+        </div>
+      {/if}
       </div>
     </div>
   </nav>
 <script lang="ts">
     import {Routes, CurrentUser} from '../stores';
+    function LogOut(){
+      localStorage.removeItem('extrahalal');
+      $CurrentUser = {
+        address:'',
+        admin:false,
+        email:'',
+        fullname:'',
+        isGuest:true,
+        name:'',
+        passwd:'',
+      }
+    }
 </script>
+<style lang="sass">
+  .dropdown
+    span
+      cursor: pointer
+</style>

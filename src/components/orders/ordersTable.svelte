@@ -46,7 +46,7 @@
                         <td>{new Intl.NumberFormat("hu-HU", {style: "currency",currency: "HUF",}).format(Array.from(new Set(order.items.map((g) => {return g.price * g.amount;}))).reduce((a, b) => a + b))}</td>
                         <td>
                             <button class="btn btn-primary" title="siparişi görüntüle" on:click={() => {ViewOrder(order);}} data-bs-toggle="modal" data-bs-target="#ordermodal"><i class="bi bi-eye" /></button>
-                            <button class="btn btn-success" title="tamamlandı olarak işaretle" on:click={() => { MarkOrder(order.ID); }}><i class="bi bi-check-lg" /></button>
+                            {#if order.isDone!=true}<button class="btn btn-success" title="tamamlandı olarak işaretle" on:click={() => { MarkOrder(order.ID); }}><i class="bi bi-check-lg" /></button>{/if}
                             <button class="btn btn-danger" title="siparişi sil" on:click={() => { DeleteOrder(order.ID); }}><i class="bi bi-trash" /></button>
                         </td>
                     </tr>
@@ -54,6 +54,6 @@
             </tbody>
         </table>
     {:else}
-        <h2 class="text-danger display-1 fw-b">Henüz sipariş yok!</h2>
+        <h2 class="text-danger display-1 fw-b   ">Henüz sipariş yok!</h2>
     {/if}
 {/await}
