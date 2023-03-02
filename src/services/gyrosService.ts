@@ -12,13 +12,17 @@ interface Params{
 
 export async function GetGyros():Promise<Gyros[]>{
     let param:Params = {
-        table:'gyros',
+        table:'gyrosok'
     }
     return await axios.get('http://localhost/extra-halal/api/database.php', {params:param}).then(res=>res.data);
 }
 
-export async function PostGyros(object) {
-        await axios.post("http://localhost/backend/extra-halal/api/database.php", object).then((res)=>{
-            console.log(res);
-        })
+export async function PostGyros(object:Gyros) {
+    let param:Params = {
+        values:object,
+        table:'gyrosok'
+    }
+    await axios.post("http://localhost/extra-halal/api/database.php", param).then((res)=>{
+        console.log(res);
+    })
 }
