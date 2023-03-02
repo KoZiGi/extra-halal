@@ -1,10 +1,19 @@
 <script lang="ts">
-    let gyros={
-        name:"",
-        cost:0,
-        des:"",
-        file:null
-    }
+    import type {Gyros} from '../interfaces/gyros';
+    import axios from 'axios';
+    import { PostGyros } from '../services/gyrosService';
+    let object={
+        values:{
+            name:"",
+            price:0,
+            kcal:0,
+            description:"",
+            image: ""
+        },
+        table: "gyrosok"
+    } 
+
+    
     
 </script>
 
@@ -13,21 +22,25 @@
         <h2>Gyros feltöltés: </h2>
         <div class="mb-3">
             <label for="name" class="form-label">isim (name)</label>
-            <input type="text" id="name" class="form-control" bind:value={gyros.name} />
+            <input type="text" id="name" class="form-control" bind:value={object.values.name} />
         </div>
         <div class="mb-3">
             <label for="cost" class="form-label">fiyat (cost)</label>
-            <input type="number" id="cost" class="form-control" bind:value={gyros.cost} />
+            <input type="number" id="cost" class="form-control" bind:value={object.values.price} />
+        </div>
+        <div class="mb-3">
+            <label for="kcal" class="form-label">kalori (kcal)</label>
+            <input type="number" id="kcal" class="form-control" bind:value={object.values.kcal} />
         </div>
         <div class="mb-3">
             <label for="des" class="form-label">tanim (description)</label>
-            <textarea id="des" class="form-control" bind:value={gyros.des} />
+            <textarea id="des" class="form-control" bind:value={object.values.description} />
         </div>
         <div class="mb-3">
             <label for="pic" class="form-label">resim (picture)</label>
-            <input type="file" id="pic" class="form-control " bind:value={gyros.file}>
+            <input type="file" id="pic" class="form-control " bind:value={object.values.image}>
         </div>
-        <button class="btn btn-primary">Upload</button>
+        <button type="button" class="btn btn-primary" on:click={()=>PostGyros(object)}>Upload</button>
     </div>
 </main>
 
