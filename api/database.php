@@ -140,9 +140,7 @@
                 }
                     
                 try{
-                    $cmd = $db->prepare("INSERT INTO $table (ID $fields) VALUES(null $values)");
-                    $affectedRows = $cmd->execute();
-                    $cmd->commit();
+                    $cmd = $db->exec("INSERT INTO $table (ID $fields) VALUES(null $values)");
                     $results = array(
                         'insertedId' => $cmd->lastInsertId(),
                         'message' => "A művelet végrehajtva!"

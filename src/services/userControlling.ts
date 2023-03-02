@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type {User} from '../interfaces/user';
+import type {RegistrationData, User} from '../interfaces/user';
 interface ServerResponse{
     message:string,
     affectedRows?:number;
@@ -14,7 +14,7 @@ interface Params{
     field?:string,
     value?:string|number,
     id?:number,
-    data?:any
+    values?:any
 }
 
 
@@ -29,10 +29,10 @@ export function Login(userdata:LoginData):Promise<ServerResponse>{
         ...userdata
     })
 }
-export function Register(newuser:User):Promise<any>{
+export function Register(newuser:RegistrationData):Promise<any>{
     let param:Params = {
         table:'users',
-        data:newuser
+        values:newuser
     }
     return axios.post('http://localhost/extra-halal/api/database.php', param);
 }
