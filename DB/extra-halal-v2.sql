@@ -97,7 +97,7 @@ ALTER TABLE `gyrosok`
 --
 ALTER TABLE `orderitems`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `UID` (`UID`,`GID`),
+  ADD KEY `UID` (`UID`),
   ADD KEY `GID` (`GID`),
   ADD KEY `OID` (`OID`);
 
