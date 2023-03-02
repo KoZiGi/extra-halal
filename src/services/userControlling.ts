@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Params } from '../interfaces/db';
 import type {RegistrationData, User} from '../interfaces/user';
 interface ServerResponse{
     message:string,
@@ -9,14 +10,6 @@ export interface LoginData{
     email:string;
     passwd:string;
 }
-interface Params{
-    table:string,
-    field?:string,
-    value?:string|number,
-    id?:number,
-    values?:any
-}
-
 
 export async function GetUser(parameters?:Params):Promise<User[]>{
     return await axios.get('http://localhost/extra-halal/api/database.php', {
