@@ -16,7 +16,7 @@
         <Route path='/registration' redirect='/' />
     {/if}
     {#each $Routes as route}
-        {#if route.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
+        {#if route.minPriv <= ($CurrentUser.isGuest==true ? 0 : $CurrentUser.admin==true ? 2 : 1 ) }
             <Route path={route.path}><LazyLoad component={()=>import( /* @vite-ignore */ route.component)} /></Route>
             {:else}
             <Route path={route.path} redirect="/login" />

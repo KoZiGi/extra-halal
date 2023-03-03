@@ -140,11 +140,15 @@
                 }
                     
                 try{
-                    $cmd = $db->exec("INSERT INTO $table (ID $fields) VALUES(null $values)");
+                    $statement = $db->prepare("INSERT INTO $table (ID $fields) VALUES(null $values)");
+                    $db->beginTransaction();
+                    $statement->execute();
+                    
                     $results = array(
-                        'insertedId' => $cmd->lastInsertId(),
+                        'insertedId' => $db->lastInsertId(),
                         'message' => "A művelet végrehajtva!"
                     );
+                    $db->commit();
                 }
                 catch(PDOException $Exception){
                     $results = array(

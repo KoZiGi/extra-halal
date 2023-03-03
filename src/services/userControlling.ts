@@ -14,7 +14,7 @@ export interface LoginData{
 export async function GetUser(parameters?:Params):Promise<User[]>{
     return await axios.get('http://localhost/extra-halal/api/database.php', {
         params:parameters ? parameters : {table:'users'}
-    }).then(res=>res.data);
+    }).then(res=>res.data.map(e=>{return {...e, cart: []}}));
 }
 export function Login(userdata:LoginData):Promise<ServerResponse>{
     return axios.post('http://localhost/extra-halal/api/database.php', {

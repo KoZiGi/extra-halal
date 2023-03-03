@@ -54,6 +54,6 @@
             </tbody>
         </table>
     {:else}
-        <h2 class="text-danger display-1 fw-b   ">Henüz sipariş yok!</h2>
+        <h2 class="text-danger display-1 fw-b">Henüz sipariş yok!</h2>
     {/if}
 {/await}

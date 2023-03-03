@@ -13,9 +13,9 @@
             <li class="nav-item"><a href='/registration' class="nav-link">Regisztrál</a></li>
           {/if}
         {#each $Routes as link}
-          {#if link.minPriv <= ($CurrentUser.isGuest ? 0 : $CurrentUser.admin ? 2 : 1 ) }
+          {#if link.minPriv <= ($CurrentUser.isGuest == true ? 0 : $CurrentUser.admin == true ? 2 : 1 ) }
                 <li class="nav-item">
-                    <a class="nav-link" href={link.path}>{link.name}</a>
+                    <a class="nav-link" href={link.path}>{link.name}{#if link.path==="/cart" && $CurrentUser.cart.length>0}<span class="badge rounded-pill bg-danger"> {$CurrentUser.cart.length}</span>{/if}</a>
                 </li>
             {/if}
         {/each}
@@ -24,7 +24,7 @@
         <div class="ms-auto dropdown">
           <span class="nav-link dropdown-toggle" id="navdrop" data-bs-toggle="dropdown">{$CurrentUser.name}</span>
           <ul class="dropdown-menu dropdown-menu-md-end">
-            <li><span class="dropdown-item" on:click={LogOut}>Kijelentkez</span></li>
+            <li><span class="dropdown-item" on:click={LogOut} on:keypress={()=>{}}>Kijelentkez</span></li>
           </ul>
         </div>
       {/if}

@@ -23,6 +23,12 @@ export let Routes:Readable<Route[]> = readable<Route[]>([
         minPriv:1
     },
     {
+        path:'/my-orders',
+        name:"Rendeléseid",
+        component:'./views/OwnOrders.svelte',
+        minPriv:1
+    },
+    {
         path:"/orders",
         name:"Eve Teslim Deneyimi",
         component:'./views/Orders.svelte',
@@ -37,4 +43,5 @@ export let CurrentUser:Writable<User> = writable<User>(localStorage.getItem('ext
     isGuest:true,
     name:'',
     passwd:'',
+    cart: []
 })

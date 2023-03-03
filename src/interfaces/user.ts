@@ -7,6 +7,7 @@ export interface User{
     address:string;
     admin:boolean;
     isGuest:boolean;
+    cart?:any[];
 }
 export interface RegistrationData{
     name:string;
