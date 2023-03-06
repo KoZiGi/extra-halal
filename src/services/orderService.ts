@@ -49,9 +49,9 @@ export async function MarkOrderAsDone(orderID:number){
         }
     }).then(res=>res).catch(err=>err.response);
 }
-export async function GetOrders(): Promise<Order[]> {
-    let orderers: Promise<orderer[]> = await axios.get('http://localhost/extra-halal/api/database.php', {params:{table:'users'}}).then(res=>res.data);
-    let orders: Promise<_order[]> = await axios.get('http://localhost/extra-halal/api/database.php', { params: { table: 'orders' } }).then(res => res.data);
+export async function GetOrders(userID?:number): Promise<Order[]> {
+    let orderers: Promise<orderer[]> = await axios.get('http://localhost/extra-halal/api/database.php', {params:{table:'users', field:"ID", value:userID}}).then(res=>res.data);
+    let orders: Promise<_order[]> = await axios.get('http://localhost/extra-halal/api/database.php', { params: { table: 'orders', field: "userID", value:userID } }).then(res => res.data);
     let orderitems: Promise<_orderitem[]> = await axios.get('http://localhost/extra-halal/api/database.php', { params: { table: 'orderitems' } }).then(res => res.data);
     let gyroses: Promise<Gyros[]> = await axios.get('http://localhost/extra-halal/api/database.php', { params: { table: 'gyrosok' } }).then(res => res.data);
 

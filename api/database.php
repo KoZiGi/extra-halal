@@ -106,12 +106,13 @@
         else{
             if (isset($_FILES['filename'])){
                 $filename = $_FILES['filename']['name'];
-                if (move_uploaded_file($_FILES['filename']['tmp_name'], $uploadDir.time().'-'-$_FILES['filename']['name']))
+                
+                if (move_uploaded_file($_FILES['filename']['tmp_name'], $uploadDir.time().'-'.$_FILES['filename']['name']))
                 {
                     $results = array(
                         'affectedRows' => 1,
                         'message' => "A fájl feltöltve!",
-                        'filename'=>time().'-'.$FILES['filename']['name']
+                        'filename'=>time().'-'.$_FILES['filename']['name']
                     );
     
                 }

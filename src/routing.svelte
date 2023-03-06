@@ -8,6 +8,9 @@
     console.log($CurrentUser);
 </script>
 <main>
+    {#if $CurrentUser.admin == true}
+        <Route path="/gyros-upload"><LazyLoad component={()=>import('./views/GyrosUpload.svelte')} /></Route>
+    {/if}
     {#if $CurrentUser.isGuest}
         <Route path='/login'><LazyLoad component={()=>import('./views/Login.svelte')}/></Route>
         <Route path='/registration'><LazyLoad component={()=>import('./views/Registration.svelte')}/></Route>

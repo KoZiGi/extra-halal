@@ -13,14 +13,13 @@
       $CurrentUser.cart = $CurrentUser.cart;
       localStorage.setItem('extrahalal', JSON.stringify($CurrentUser))
     }
-
 </script>
 
 <div class="card m-2" style="width: 18rem;">
     <div class="card-header">
         <h4 class="card-title mb-0">{gyros.name}</h4>
     </div>
-    <img src={gyros.image} class="card-img-top" alt="..." />
+    <img src={'http://localhost/extra-halal/api/uploads/'+gyros.image} class="card-img-top" alt="..." />
     <div class="card-body">
         <p class="card-text">{gyros.description}</p>
         <div class="d-flex flex-row justify-content-between">

@@ -43,7 +43,7 @@
                         <td>{order.ID}</td>
                         <td>{order.username}{#if order.isDone}<i class="bi bi-check-lg"/>{/if}</td>
                         <td>{order.address}</td>
-                        <td>{new Intl.NumberFormat("hu-HU", {style: "currency",currency: "HUF",}).format(Array.from(new Set(order.items.map((g) => {return g.price * g.amount;}))).reduce((a, b) => a + b))}</td>
+                        <td>{new Intl.NumberFormat("tr-TR", {style:"currency", currency:"TRY"}).format(order.items.map(e=>Number(e.price)*Number(e.amount)).reduce((a,b)=>a+b)*18.79)}</td>
                         <td>
                             <button class="btn btn-primary" title="siparişi görüntüle" on:click={() => {ViewOrder(order);}} data-bs-toggle="modal" data-bs-target="#ordermodal"><i class="bi bi-eye" /></button>
                             {#if order.isDone!=true}<button class="btn btn-success" title="tamamlandı olarak işaretle" on:click={() => { MarkOrder(order.ID); }}><i class="bi bi-check-lg" /></button>{/if}

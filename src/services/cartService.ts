@@ -15,11 +15,12 @@ export async function PostOrder(userID:number):Promise<any>{
     }).then(res=>res.data)
 }
 export async function PostOrderItems(orderID:number, orderitem):Promise<any>{
-    return await axios.patch("http://localhost/extra-halal/api/database.php", {
+    return await axios.post("http://localhost/extra-halal/api/database.php", {
         table:'orderitems',
         values:{
             orderID:orderID,
-
+            gyrosID:orderitem.GID,
+            amount:orderitem.amount
         }
     })
 }

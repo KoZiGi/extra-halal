@@ -24,6 +24,9 @@
         <div class="ms-auto dropdown">
           <span class="nav-link dropdown-toggle" id="navdrop" data-bs-toggle="dropdown">{$CurrentUser.name}</span>
           <ul class="dropdown-menu dropdown-menu-md-end">
+            {#if $CurrentUser.admin == true}
+            <li><a href="/gyros-upload" class="dropdown-item">Jiroskop yükleme</a></li>
+            {/if}
             <li><span class="dropdown-item" on:click={LogOut} on:keypress={()=>{}}>Kijelentkez</span></li>
           </ul>
         </div>

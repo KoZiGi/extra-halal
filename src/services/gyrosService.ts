@@ -18,11 +18,14 @@ export async function GetGyros():Promise<Gyros[]>{
 }
 
 export async function PostGyros(object:Gyros) {
-    let param:Params = {
-        values:object,
-        table:'gyrosok'
+    let params:Params = {
+        table:'gyrosok',
+        values:object
     }
-    await axios.post("http://localhost/extra-halal/api/database.php", param).then((res)=>{
-        console.log(res);
+    return await axios.post("http://localhost/extra-halal/api/database.php", params).then((res)=>{
+        return res.data;
     })
+}
+export async function UploadFile(object:FormData){
+    return await axios.post("http://localhost/extra-halal/api/database.php", object).then((res)=>res.data)
 }

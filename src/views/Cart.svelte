@@ -1,9 +1,17 @@
 <script lang="ts">
     import type { Gyros } from "../interfaces/gyros";
-    import { PostOrder } from "../services/cartService";
+    import { PostOrder, PostOrderItems } from "../services/cartService";
     import { GetGyros } from "../services/gyrosService";
     import {CurrentUser} from '../stores';
+    
+    interface Message {
+        message:string;
+        type:string;
+        show:boolean;
+    }
+    
     let Cart:Promise<Gyros[]> = GetGyros();
+    let message:Message
     function DeleteFromCart(cartId:number){
         console.log(cartId);
         $CurrentUser.cart.splice(cartId, 1);
@@ -12,18 +20,36 @@
     }
     async function Order(){
         PostOrder($CurrentUser.ID).then(res=>{
-            console.log(res);
+            Promise.all($CurrentUser.cart.map(e=>PostOrderItems(res.insertedId, e))).then(res=>{
+                if (res.map(z=>z.data.insertedId).filter(g=>g>0).length>0){
+                    message = {
+                        message:"Sikeres vásárló, inshallah!",
+                        show:true,
+                        type:"success"
+                    };
+                    $CurrentUser.cart = [];
+                    $CurrentUser.cart = $CurrentUser.cart;
+                    localStorage.setItem("extrahalal", JSON.stringify($CurrentUser));
+                }
+                else message = {
+                    message: "Sikertelen vásárló, nem halal vásárlás!",
+                    show:true,
+                    type:"danger"
+                }
+                
+            });
         })        
         
         
         
         
-        /*$CurrentUser.cart = [];
-        $CurrentUser.cart = $CurrentUser.cart;
-        localStorage.setItem("extrahalal", JSON.stringify($CurrentUser));*/
     }
 </script>
-
+{#if message}
+    {#if message.show}
+        <div class={`alert alert-dismissible alert-${message.type}`}>{message.message} <button on:click={()=>{message.show = false;}} class="btn-close"></button></div>
+    {/if}
+{/if}
 {#if $CurrentUser.cart.length>0}
 {#await Cart}
     <div class="spinner-border"></div>
